@@ -1,17 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+    {% extends 'base.html' %}
 
-<head>
-    <title>ToDo App</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block body %}
+    {% load static %}
 
-    
+    <h1 style="text-align: center;">Task List</h1>
 
-<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.created_at }}</td>
+                <td>{{ task.due_date|date:"Y-m_d H:i:s" }}</td>
+                <td>{{ task.is_completed|yesno:"Yes,No" }}</td>
+            </tr>
+            {% empty %}
+                <p>No tasks available.</p>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <h1>Task List</h1>
-
-
-</body>
-</html>
+    {% endblock %}
